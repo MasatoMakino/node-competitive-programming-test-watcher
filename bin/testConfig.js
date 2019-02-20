@@ -1,5 +1,5 @@
 module.exports = {
-  testDir: "./test/",
+  testDirName: "test",
   inName: "in",
   outName: "out"
 };

@@ -20,6 +20,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "testIssue": "node ./bin/issue/IssueTest.js",
     "testScraping": "node ./bin/scraping/scrapingtest.js",
-    "testArchive": "node ./bin/archive/ArchiveTest.js"
+    "testArchive": "node ./bin/archive/ArchiveTest.js",
+    "testRollback": "node ./bin/archive/RollbackTest.js"
   }
 }
