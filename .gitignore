@@ -60,3 +60,7 @@ typings/
 # next.js build output
 .next
 cret.json
+archive
+src
+test
+issue_info.json

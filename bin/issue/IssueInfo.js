@@ -4,6 +4,7 @@ const URL = require("url").URL;
 const fs = require("fs");
 const IssueTypes = require("./IssueTypes");
 const datefns = require("date-fns");
+const colors = require("colors");
 
 /**
  * 課題の情報を保存、読み込みを行うモジュールです。
@@ -106,6 +107,11 @@ module.exports = {
     } else {
       resolvedPath = path.resolve(filePath);
     }
-    return require(resolvedPath);
+    try {
+      return require(resolvedPath);
+    } catch (error) {
+      console.log("ルートディレクトリに課題ファイルがありません。".bold.red);
+      return null;
+    }
   }
 };
