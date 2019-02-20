@@ -1,2 +1,2 @@
-# node-competitive-programming-test-watcher
+# node-competitive-programming-watcher
 Competitive programming helper for Node.js
