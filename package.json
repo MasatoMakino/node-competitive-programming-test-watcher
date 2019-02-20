@@ -1,0 +1,20 @@
+{
+  "name": "node-competitive-programming-watcher",
+  "version": "0.0.1",
+  "description": "Competitive programming helper for Node.js.",
+  "bin": {
+    "ctw": "bin/index"
+  },
+  "repository": "https://MasatoMakino@github.com/MasatoMakino/node-competitive-programming-watcher.git",
+  "author": "MasatoMakino <unagiinu.g@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.3.3",
+    "commander": "^2.19.0",
+    "date-fns": "^1.30.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "testIssue": "node ./bin/issue/IssueTest.js"
+  }
+}
