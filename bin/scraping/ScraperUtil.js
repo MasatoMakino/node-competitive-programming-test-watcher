@@ -39,7 +39,16 @@ module.exports = {
    * @param {Browser} browser
    */
   async getPage(browser) {
-    const page = await browser.newPage();
+    let page;
+
+    //既存のタブがある場合は再利用。
+    const pages = await browser.pages();
+    if (pages.length !== 0) {
+      page = pages[0];
+    } else {
+      page = await browser.newPage();
+    }
+
     await page.setRequestInterception(true);
     page.on("request", request => {
       if (

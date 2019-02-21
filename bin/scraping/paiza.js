@@ -24,10 +24,7 @@ module.exports = class PaizaScraper {
       arg.pass = arg.pass || config.paiza.pass;
     }
 
-    const label = "boot browser";
-    console.time(label);
     this.browser = await ScraperUtil.getBrowser();
-    console.timeEnd(label);
     this.page = await ScraperUtil.getPage(this.browser);
 
     await this.page.goto("https://paiza.jp/user_sessions/new_cbox", {

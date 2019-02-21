@@ -27,7 +27,7 @@ module.exports = class AtCoderScraper {
     this.page = await ScraperUtil.getPage(this.browser);
 
     await this.page.goto("https://atcoder.jp/login", {
-      waitUntil: "networkidle2"
+      waitUntil: "domcontentloaded"
     });
 
     const isLogin = await this.page.evaluate(() => {

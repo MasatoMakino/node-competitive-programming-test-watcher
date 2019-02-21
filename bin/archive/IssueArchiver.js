@@ -67,7 +67,7 @@ module.exports = {
     if (archiveDir == null) {
       return;
     }
-    console.log("restore from " + archiveDir);
+    console.log(("restore from " + archiveDir).green);
     if (isDryRun) {
       return;
     }
@@ -102,7 +102,6 @@ module.exports = {
   getArchiveDir(dirPath) {
     const resolvedPath = path.resolve(dirPath);
 
-    console.log(resolvedPath);
     if (!fs.existsSync(resolvedPath)) {
       console.log("指定されたディレクトリが存在しません。".red);
       return;
