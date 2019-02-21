@@ -22,6 +22,7 @@
     "testScraping": "node ./bin/scraping/scrapingtest.js",
     "testArchive": "node ./bin/archive/ArchiveTest.js",
     "testRollback": "node ./bin/archive/RollbackTest.js",
-    "testIndex": "node ./bin/index.js -i http"
+    "testIndexURL": "node ./bin/index.js -i https://atcoder.jp/contests/abs/tasks/abc086_a",
+    "testIndexNumber": "node ./bin/index.js -e 2"
   }
 }

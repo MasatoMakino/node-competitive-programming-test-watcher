@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 "use strict";
+const init = require("./init/init");
 const program = require("commander");
 
 program
-  .usage("-n yourname")
+  .usage("-i [url]")
   .option("-i, --init <URL>", "scraping test case from <URL>", String)
   .option(
     "-e, --initEmpty <number>",
@@ -11,6 +12,14 @@ program
     Number
   )
   .option("-w, --watch", "watch src and test")
+  .option("-r, --rollback <path>", "rollback from archive <path>", String)
   .parse(process.argv);
 
-console.log("Hello " + program.name + "!");
+if (program.init) {
+  console.log(program.init);
+  init.initWithURL(program.init);
+}
+if (program.initEmpty) {
+  console.log(program.initEmpty);
+  init.initWithNumber(program.initEmpty);
+}
