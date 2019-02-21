@@ -63,12 +63,9 @@ module.exports = {
  */
 async function overrideIndex() {
   const dirConfig = require("../dirConfig");
-
   makeDir.sync(`./${dirConfig.srcDirName}/`);
-  let binDir = path.dirname(process.argv[1]);
-
   fs.copyFileSync(
-    path.resolve(binDir, "template.js"),
+    path.resolve(__dirname, "../template.js"),
     path.resolve(`./${dirConfig.srcDirName}/index.js`)
   );
 }
