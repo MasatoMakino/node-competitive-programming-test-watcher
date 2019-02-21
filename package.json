@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Competitive programming helper for Node.js.",
   "bin": {
-    "ctw": "bin/index"
+    "ctw": "bin/index.js"
   },
   "repository": "https://MasatoMakino@github.com/MasatoMakino/node-competitive-programming-watcher.git",
   "author": "MasatoMakino <unagiinu.g@gmail.com>",
