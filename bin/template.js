@@ -3,9 +3,14 @@
  * 同期処理。
  */
 function readDevStdIn() {
-  const input = require("fs")
+  let input = require("fs")
     .readFileSync("/dev/stdin", "utf8")
     .split("\n");
+
+  //行末が空行の場合は削除
+  if (input[input.length - 1] === "") {
+    input.pop();
+  }
   return input;
 }
 
