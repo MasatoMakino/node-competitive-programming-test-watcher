@@ -79,8 +79,8 @@ module.exports = {
 
     makeDir.sync(path.resolve(`./${dirConfig.srcDirName}/`));
     fs.copyFileSync(
-      path.resolve(archiveDir, dirConfig.srcDirName, "index.js"),
-      path.resolve(`./${dirConfig.srcDirName}/index.js`)
+      path.resolve(archiveDir, dirConfig.srcDirName, dirConfig.srcName),
+      path.resolve(`./${dirConfig.srcDirName}/${dirConfig.srcName}`)
     );
 
     //既存のテストケース削除

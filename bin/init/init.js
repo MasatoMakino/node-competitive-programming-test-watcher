@@ -66,7 +66,7 @@ async function overrideIndex() {
   makeDir.sync(`./${dirConfig.srcDirName}/`);
   fs.copyFileSync(
     path.resolve(__dirname, "../template.js"),
-    path.resolve(`./${dirConfig.srcDirName}/index.js`)
+    path.resolve(`./${dirConfig.srcDirName}/${dirConfig.srcName}`)
   );
 }
 

@@ -1,5 +1,6 @@
 module.exports = {
   srcDirName: "src",
   distDirName: "dist",
-  archiveDirName: "archive"
+  archiveDirName: "archive",
+  srcName: "index.js"
 };
