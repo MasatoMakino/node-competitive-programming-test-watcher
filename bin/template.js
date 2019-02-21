@@ -13,6 +13,8 @@ function readDevStdIn() {
   }
   return input;
 }
-
-const inputs = readDevStdIn();
-console.log(inputs[0]);
+function main() {
+  const inputs = readDevStdIn();
+  console.log(inputs[0]);
+}
+main();
