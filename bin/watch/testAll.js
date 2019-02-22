@@ -34,8 +34,7 @@ module.exports = function() {
       );
     } catch (error) {
       errorCount++;
-      console.log(("ERROR  : " + path.basename(val)).bold.red);
-      console.log();
+      logErrorInfo(val);
       return;
     }
 
@@ -53,28 +52,31 @@ module.exports = function() {
   });
 
   logTotalCounts(inFiles, passCount, failsCount, errorCount);
-
-  if (inFiles.length !== passCount) {
-    console.log("Fails an exam".bold.magenta);
-    return;
-  }
-
-  console.log("Passing all exam".bold.green);
-  fs.readFile(
-    `./${dirConfig.distDirName}/${dirConfig.srcName}`,
-    "utf-8",
-    (err, data) => {
-      require("clipboardy").write(data);
-    }
-  );
+  logResult(inFiles, passCount);
 };
 
+/**
+ * テスト失敗時の出力を行う。
+ * @param {string}} val
+ * @param {string} result
+ * @param {string} out
+ */
 function logFailsInfo(val, result, out) {
   console.log(("FAILS  : " + path.basename(val)).bold.magenta);
   console.log("Result : ".bold.magenta);
   console.log(result.magenta);
   console.log("Expectation : ".bold.magenta);
   console.log(out.magenta);
+}
+
+/**
+ * ランタイムエラー発生時の出力。
+ * @param {string}} val テストファイルのパス。
+ */
+function logErrorInfo(val) {
+  console.log(("ERROR  : " + path.basename(val)).bold.red);
+  console.log();
+  return;
 }
 /**
  * トータルの成績を出力する。
@@ -97,5 +99,25 @@ function logTotalCounts(inFiles, passCount, failsCount, errorCount) {
     styledFailsCount,
     " ERROR : ",
     errorCount.toString().red
+  );
+}
+
+/**
+ * 最終結果を発表する。
+ * @param {Array[String]} inFiles
+ * @param {Number} passCount
+ */
+function logResult(inFiles, passCount) {
+  if (inFiles.length !== passCount) {
+    console.log("Fails an exam".bold.magenta);
+    return;
+  }
+  console.log("Passing all exam".bold.green);
+  fs.readFile(
+    `./${dirConfig.distDirName}/${dirConfig.srcName}`,
+    "utf-8",
+    (err, data) => {
+      require("clipboardy").write(data);
+    }
   );
 }
