@@ -2,6 +2,7 @@
 const makeDir = require("make-dir");
 const fs = require("fs");
 const path = require("path");
+const URL = require("url").URL;
 const rimraf = require("rimraf");
 const testConfig = require("../testConfig");
 const IssueInfo = require("../issue/IssueInfo");
@@ -55,6 +56,23 @@ module.exports = {
 
     console.log(("Complete : init Test case form " + opt).bold.green);
     return;
+  },
+  async initFromClipboard() {
+    let url;
+    let copied;
+
+    try {
+      copied = require("clipboardy").readSync();
+      url = new URL(copied);
+    } catch (error) {
+      console.error(
+        "クリップボードの内容がURLではありません。処理を中断します。".bold.red
+      );
+      return;
+    }
+
+    if (url == null) return;
+    await this.initWithURL(copied);
   }
 };
 

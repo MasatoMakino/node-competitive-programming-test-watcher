@@ -36,7 +36,6 @@ module.exports = {
 
     //課題判定
     const pathName = parsed.pathname;
-    console.log(pathName);
     let issue = "";
     switch (type) {
       case IssueTypes.AT_CODER:
