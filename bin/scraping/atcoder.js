@@ -1,10 +1,12 @@
 const puppeteer = require("puppeteer");
 const ScraperUtil = require("./ScraperUtil");
+const Scraper = require("./Scrapier");
+const IssueTypes = require("../issue/IssueTypes");
 
-module.exports = class AtCoderScraper {
+module.exports = class AtCoderScraper extends Scraper {
   constructor() {
-    this.browser = null;
-    this.page = null;
+    super();
+    this.type = IssueTypes.AT_CODER;
   }
 
   /**
@@ -14,14 +16,7 @@ module.exports = class AtCoderScraper {
    * @param {string} arg.path
    */
   async login(arg) {
-    if (arg == null) {
-      arg = {};
-    }
-    if (arg.id == null || arg.pass == null) {
-      const config = ScraperUtil.getCertificate(arg.path);
-      arg.id = arg.id || config.paiza.id;
-      arg.pass = arg.pass || config.paiza.pass;
-    }
+    arg = super.initLoginArgs(arg, this.type);
 
     this.browser = await ScraperUtil.getBrowser();
     this.page = await ScraperUtil.getPage(this.browser);

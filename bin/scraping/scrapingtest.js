@@ -22,7 +22,7 @@ async function testAtCoder() {
 
 async function test() {
   await testPaiza();
-  //await testAtCoder();
+  await testAtCoder();
 }
 
 test();

@@ -1,11 +1,13 @@
 const puppeteer = require("puppeteer");
 const URL = require("url").URL;
 const ScraperUtil = require("./ScraperUtil");
+const Scraper = require("./Scrapier");
+const IssueTypes = require("../issue/IssueTypes");
 
-module.exports = class PaizaScraper {
+module.exports = class PaizaScraper extends Scraper {
   constructor() {
-    this.browser = null;
-    this.page = null;
+    super();
+    this.type = IssueTypes.PAIZA;
   }
 
   /**
@@ -15,14 +17,7 @@ module.exports = class PaizaScraper {
    * @param {string} arg.path
    */
   async login(arg) {
-    if (arg == null) {
-      arg = {};
-    }
-    if (arg.id == null || arg.pass == null) {
-      const config = ScraperUtil.getCertificate(arg.path);
-      arg.id = arg.id || config.paiza.id;
-      arg.pass = arg.pass || config.paiza.pass;
-    }
+    arg = super.initLoginArgs(arg, this.type);
 
     this.browser = await ScraperUtil.getBrowser();
     this.page = await ScraperUtil.getPage(this.browser);
