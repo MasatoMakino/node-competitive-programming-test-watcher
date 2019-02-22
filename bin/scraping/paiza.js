@@ -27,17 +27,14 @@ module.exports = class PaizaScraper extends Scraper {
     });
 
     console.log("logging in...");
-
     await this.page.type('input[id="user_email"]', arg.id);
     await this.page.type('input[id="user_password"]', arg.pass);
-
     await Promise.all([
       this.page.waitForNavigation({
         waitUntil: "domcontentloaded"
       }),
       this.page.click("input.btn_login")
     ]);
-
     console.log("login");
 
     return;
@@ -68,34 +65,52 @@ module.exports = class PaizaScraper extends Scraper {
 
     //再挑戦タイプのページは単一のリファラで繊維可能。
     if (type === "retry") {
-      await this.page.goto(url, {
-        waitUntil: "domcontentloaded",
-        referer: "https://paiza.jp/career/mypage/results"
-      });
+      await this.jumpToRetryPage(url);
       return;
     }
 
     const selector = 'a[href="' + pathName + '"]';
-
     const ranks = ["d", "c", "b", "a", "s"];
+
     for (let i = 0; i < ranks.length; i++) {
       const rankURL = "https://paiza.jp/challenges/ranks/" + ranks[i];
       console.log("searching issue form " + rankURL + " ...");
       await this.page.goto(rankURL, {
         waitUntil: "domcontentloaded"
       });
-
       const linkButtons = await this.page.$$(selector);
       if (linkButtons.length === 0) continue;
 
-      await Promise.all([
-        this.page.waitForNavigation({
-          waitUntil: "domcontentloaded"
-        }),
-        this.page.click(selector)
-      ]);
-
+      this.jumpToShowPage(selector);
       return;
     }
+  }
+
+  /**
+   * retry型の問題ページに飛ぶ。
+   * 固定のリファラをつけて直接遷移が可能。
+   * @param {string} url
+   */
+  async jumpToRetryPage(url) {
+    await this.page.goto(url, {
+      waitUntil: "domcontentloaded",
+      referer: "https://paiza.jp/career/mypage/results"
+    });
+    return;
+  }
+
+  /**
+   * show型の問題ページに飛ぶ。
+   * 課題リストページから該当するリンクボタンを指定してクリックし、遷移させる。
+   * @param {string} selector aリンクセレクタ。
+   */
+  async jumpToShowPage(selector) {
+    await Promise.all([
+      this.page.waitForNavigation({
+        waitUntil: "domcontentloaded"
+      }),
+      this.page.click(selector)
+    ]);
+    return;
   }
 };
