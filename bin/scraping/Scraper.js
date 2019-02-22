@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const ScraperUtil = require("./ScraperUtil");
 const IssueTypes = require("../issue/IssueTypes");
 
-module.exports = class Scrapier {
+module.exports = class Scraper {
   constructor() {
     this.browser = null;
     this.page = null;
@@ -19,5 +19,14 @@ module.exports = class Scrapier {
       arg.pass = arg.pass || config[type].pass;
     }
     return arg;
+  }
+
+  async evalTests(selector) {
+    const tests = await this.page.$$eval(selector, list => {
+      return list.map(data => {
+        return data.textContent;
+      });
+    });
+    return tests;
   }
 };

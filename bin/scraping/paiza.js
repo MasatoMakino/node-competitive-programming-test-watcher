@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 const URL = require("url").URL;
 const ScraperUtil = require("./ScraperUtil");
-const Scraper = require("./Scrapier");
+const Scraper = require("./Scraper");
 const IssueTypes = require("../issue/IssueTypes");
 
 module.exports = class PaizaScraper extends Scraper {
@@ -50,15 +50,9 @@ module.exports = class PaizaScraper extends Scraper {
   async getTest(url) {
     await this.jump(url);
 
-    const tests = await this.page.$$eval(
-      "div.sample-container pre.sample-content__input > code",
-      list => {
-        return list.map(data => {
-          return data.textContent;
-        });
-      }
+    const tests = await super.evalTests(
+      "div.sample-container pre.sample-content__input > code"
     );
-
     console.log(tests);
     return tests;
   }

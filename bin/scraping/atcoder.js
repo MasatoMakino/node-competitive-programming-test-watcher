@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 const ScraperUtil = require("./ScraperUtil");
-const Scraper = require("./Scrapier");
+const Scraper = require("./Scraper");
 const IssueTypes = require("../issue/IssueTypes");
 
 module.exports = class AtCoderScraper extends Scraper {
@@ -56,15 +56,9 @@ module.exports = class AtCoderScraper extends Scraper {
       waitUntil: "networkidle2"
     });
 
-    const tests = await this.page.$$eval(
-      ":scope span.lang-ja div.div-btn-copy + pre",
-      list => {
-        return list.map(data => {
-          return data.textContent;
-        });
-      }
+    const tests = await super.evalTests(
+      ":scope span.lang-ja div.div-btn-copy + pre"
     );
-
     console.log(tests);
     return tests;
   }
