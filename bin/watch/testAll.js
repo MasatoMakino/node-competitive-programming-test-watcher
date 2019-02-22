@@ -27,6 +27,7 @@ module.exports = function() {
 
   inFiles.forEach((val, index) => {
     let resultObj;
+    //ランタイムエラーが発生していないか確認
     try {
       resultObj = execSync(
         "cat " + val + ` | node ${dirConfig.distDirName}/${dirConfig.srcName}`
@@ -41,23 +42,48 @@ module.exports = function() {
     const result = resultObj.toString();
     const out = fs.readFileSync(outFiles[index], { encoding: "utf-8" });
     const isPass = result === out;
-    if (isPass) {
-      passCount++;
-    } else {
-      failsCount++;
-    }
+    if (isPass) passCount++;
+    else failsCount++;
 
     if (isPass) {
       console.log(("PASSED : " + path.basename(val)).green);
     } else {
-      console.log(("FAILS  : " + path.basename(val)).bold.magenta);
-      console.log("Result : ".bold.magenta);
-      console.log(result.magenta);
-      console.log("Expectation : ".bold.magenta);
-      console.log(out.magenta);
+      logFailsInfo(val, result, out);
     }
   });
 
+  logTotalCounts(inFiles, passCount, failsCount, errorCount);
+
+  if (inFiles.length !== passCount) {
+    console.log("Fails an exam".bold.magenta);
+    return;
+  }
+
+  console.log("Passing all exam".bold.green);
+  fs.readFile(
+    `./${dirConfig.distDirName}/${dirConfig.srcName}`,
+    "utf-8",
+    (err, data) => {
+      require("clipboardy").write(data);
+    }
+  );
+};
+
+function logFailsInfo(val, result, out) {
+  console.log(("FAILS  : " + path.basename(val)).bold.magenta);
+  console.log("Result : ".bold.magenta);
+  console.log(result.magenta);
+  console.log("Expectation : ".bold.magenta);
+  console.log(out.magenta);
+}
+/**
+ * トータルの成績を出力する。
+ * @param {Array<String>} inFiles
+ * @param {Number} passCount
+ * @param {Number} failsCount
+ * @param {Number} errorCount
+ */
+function logTotalCounts(inFiles, passCount, failsCount, errorCount) {
   const failsCountString = failsCount.toString();
   const styledFailsCount =
     failsCount === 0 ? failsCountString.gray : failsCountString.red;
@@ -72,17 +98,4 @@ module.exports = function() {
     " ERROR : ",
     errorCount.toString().red
   );
-
-  if (failsCount === 0 && inFiles.length === passCount) {
-    console.log("Passing all exam".bold.green);
-    fs.readFile(
-      `./${dirConfig.distDirName}/${dirConfig.srcName}`,
-      "utf-8",
-      (err, data) => {
-        require("clipboardy").write(data);
-      }
-    );
-  } else {
-    console.log("Fails an exam".bold.magenta);
-  }
-};
+}
