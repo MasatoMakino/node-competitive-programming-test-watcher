@@ -25,17 +25,41 @@ module.exports = {
       return this.getEmptyInfo();
     }
     const parsed = new URL(url);
+    const pathName = parsed.pathname;
 
-    //タイプ判定
+    const type = this.getType(parsed);
+    const issue = this.getIssue(type, pathName);
+    const contestID = this.getContestID(type, parsed);
+
+    return {
+      type: type,
+      url: url,
+      issueID: issue,
+      contestID: contestID,
+      initDate: this.getDate()
+    };
+  },
+
+  /**
+   * ホストからサービス名情報を取り出す。
+   * @param {URL} parsed パース済みのURLオブジェクト
+   */
+  getType(parsed) {
     let type = "";
     if (/atcoder\.jp/.test(parsed.host)) {
       type = IssueTypes.AT_CODER;
     } else if (/paiza\.jp/.test(parsed.host)) {
       type = IssueTypes.PAIZA;
     }
+    return type;
+  },
 
-    //課題判定
-    const pathName = parsed.pathname;
+  /**
+   * URLから課題番号を抽出する。
+   * @param {string} type
+   * @param {string} pathName パース済みのURLオブジェクトのpathnameプロパティ
+   */
+  getIssue(type, pathName) {
     let issue = "";
     switch (type) {
       case IssueTypes.AT_CODER:
@@ -45,25 +69,25 @@ module.exports = {
         issue = pathName.split("/").slice(-2)[0];
         break;
     }
+    return issue;
+  },
 
-    //コンテストID
+  /**
+   * コンテストIDを取得する。
+   * @param {string} type
+   * @param {URL} parsed
+   */
+  getContestID(type, parsed) {
     let contestID = "";
     switch (type) {
       case IssueTypes.AT_CODER:
         contestID = parsed.host.split(".")[0];
         if (contestID === "atcoder") {
-          contestID = pathName.split("/")[2];
+          contestID = parsed.pathname.split("/")[2];
         }
         break;
     }
-
-    return {
-      type: type,
-      url: url,
-      issueID: issue,
-      contestID: contestID,
-      initDate: this.getDate()
-    };
+    return contestID;
   },
 
   /**
