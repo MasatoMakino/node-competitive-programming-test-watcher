@@ -64,4 +64,5 @@ auth.json
 /archive/
 /src/
 /test/
+/dist/
 issue_info.json
