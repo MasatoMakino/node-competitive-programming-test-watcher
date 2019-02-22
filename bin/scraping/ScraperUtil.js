@@ -11,15 +11,15 @@ module.exports = {
    */
   getCertificate(filePath) {
     if (filePath == null || filePath == "") {
-      filePath = "./cret.json";
+      filePath = "./auth.json";
     }
     try {
-      const cretPath = path.resolve(filePath);
-      return require(cretPath);
+      const authPath = path.resolve(filePath);
+      return require(authPath);
     } catch (error) {
       console.log(
         "ID, パスワードファイルがありません。READMEを参考にパスワードファイルを設置してください。"
-          .red
+          .bold.red
       );
       throw error;
     }

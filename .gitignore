@@ -60,7 +60,7 @@ typings/
 # next.js build output
 .next
 
-cret.json
+auth.json
 /archive/
 /src/
 /test/
