@@ -21,39 +21,50 @@ module.exports = function() {
     return;
   }
 
-  let passCount = 0;
-  let failsCount = 0;
-  let errorCount = 0;
+  const count = {
+    total: inFiles.length,
+    pass: 0,
+    fails: 0,
+    error: 0
+  };
 
   inFiles.forEach((val, index) => {
-    let resultObj;
-    //ランタイムエラーが発生していないか確認
-    try {
-      resultObj = execSync(
-        "cat " + val + ` | node ${dirConfig.distDirName}/${dirConfig.srcName}`
-      );
-    } catch (error) {
-      errorCount++;
-      logErrorInfo(val);
-      return;
-    }
+    const result = runTest(val, count);
+    if (result == null) return;
 
-    const result = resultObj.toString();
-    const out = fs.readFileSync(outFiles[index], { encoding: "utf-8" });
-    const isPass = result === out;
-    if (isPass) passCount++;
-    else failsCount++;
-
-    if (isPass) {
-      console.log(("PASSED : " + path.basename(val)).green);
-    } else {
-      logFailsInfo(val, result, out);
-    }
+    compare(outFiles[index], result, count);
   });
 
-  logTotalCounts(inFiles, passCount, failsCount, errorCount);
-  logResult(inFiles, passCount);
+  logTotalCounts(count);
+  logResult(count);
 };
+
+function runTest(inFilePath, count) {
+  try {
+    const result = execSync(
+      "cat " +
+        inFilePath +
+        ` | node ${dirConfig.distDirName}/${dirConfig.srcName}`
+    ).toString();
+    return result;
+  } catch (error) {
+    count.error++;
+    logErrorInfo(inFilePath);
+    return null;
+  }
+}
+
+function compare(outFilePath, result, count) {
+  const out = fs.readFileSync(outFilePath, { encoding: "utf-8" });
+  const isPass = result === out;
+  if (isPass) {
+    count.pass++;
+    console.log(("PASSED : " + path.basename(outFilePath)).green);
+  } else {
+    count.fails++;
+    logFailsInfo(outFilePath, result, out);
+  }
+}
 
 /**
  * テスト失敗時の出力を行う。
@@ -85,20 +96,20 @@ function logErrorInfo(val) {
  * @param {Number} failsCount
  * @param {Number} errorCount
  */
-function logTotalCounts(inFiles, passCount, failsCount, errorCount) {
-  const failsCountString = failsCount.toString();
+function logTotalCounts(count) {
+  const failsCountString = count.fails.toString();
   const styledFailsCount =
-    failsCount === 0 ? failsCountString.gray : failsCountString.red;
+    count.fails === 0 ? failsCountString.gray : failsCountString.red;
 
   console.log(
     "TOTAL : ",
-    inFiles.length.toString().green,
+    count.total.toString().green,
     " PASSED : ",
-    passCount.toString().green,
+    count.pass.toString().green,
     " FAILS : ",
     styledFailsCount,
     " ERROR : ",
-    errorCount.toString().red
+    count.error.toString().red
   );
 }
 
@@ -107,8 +118,8 @@ function logTotalCounts(inFiles, passCount, failsCount, errorCount) {
  * @param {Array[String]} inFiles
  * @param {Number} passCount
  */
-function logResult(inFiles, passCount) {
-  if (inFiles.length !== passCount) {
+function logResult(count) {
+  if (count.total !== count.pass) {
     console.log("Fails an exam".bold.magenta);
     return;
   }
