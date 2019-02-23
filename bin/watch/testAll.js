@@ -63,6 +63,7 @@ function runTest(inFilePath, count) {
     return null;
   }
 }
+
 /**
  * テスト結果と期待値を比較し、結果を出力する。
  * @param {string} outFilePath

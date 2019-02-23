@@ -2,10 +2,10 @@ const paiza = require("./paiza");
 const atcoder = require("./atcoder");
 
 async function testModule(loader, url) {
-  console.time("gettests");
+  console.time("get tests");
   await loader.login();
   const tests = await loader.getTest(url);
-  console.timeEnd("gettests");
+  console.timeEnd("get tests");
   console.time("closeBrowser");
   loader.browser.close();
   console.timeEnd("closeBrowser");
