@@ -39,6 +39,16 @@ module.exports = function() {
   logResult(count);
 };
 
+/**
+ * テストを実行する
+ * @param {string} inFilePath
+ * @param {Object} count
+ * @param {number} count.total
+ * @param {number} count.pass
+ * @param {number} count.fails
+ * @param {number} count.error
+ * @returns {string|null} 実行結果
+ */
 function runTest(inFilePath, count) {
   try {
     const result = execSync(
@@ -53,7 +63,16 @@ function runTest(inFilePath, count) {
     return null;
   }
 }
-
+/**
+ * テスト結果と期待値を比較し、結果を出力する。
+ * @param {string} outFilePath
+ * @param {string} result
+ * @param {Object} count
+ * @param {number} count.total
+ * @param {number} count.pass
+ * @param {number} count.fails
+ * @param {number} count.error
+ */
 function compare(outFilePath, result, count) {
   const out = fs.readFileSync(outFilePath, { encoding: "utf-8" });
   const isPass = result === out;
@@ -68,12 +87,12 @@ function compare(outFilePath, result, count) {
 
 /**
  * テスト失敗時の出力を行う。
- * @param {string}} val
- * @param {string} result
- * @param {string} out
+ * @param {string} outFilePath テストケースファイルのパス
+ * @param {string} result 実行した結果
+ * @param {string} out テストケースファイルの内容
  */
-function logFailsInfo(val, result, out) {
-  console.log(("FAILS  : " + path.basename(val)).bold.magenta);
+function logFailsInfo(outFilePath, result, out) {
+  console.log(("FAILS  : " + path.basename(outFilePath)).bold.magenta);
   console.log("Result : ".bold.magenta);
   console.log(result.magenta);
   console.log("Expectation : ".bold.magenta);
@@ -91,10 +110,11 @@ function logErrorInfo(val) {
 }
 /**
  * トータルの成績を出力する。
- * @param {Array<String>} inFiles
- * @param {Number} passCount
- * @param {Number} failsCount
- * @param {Number} errorCount
+ * @param {Object} count
+ * @param {number} count.total
+ * @param {number} count.pass
+ * @param {number} count.fails
+ * @param {number} count.error
  */
 function logTotalCounts(count) {
   const failsCountString = count.fails.toString();
@@ -115,8 +135,11 @@ function logTotalCounts(count) {
 
 /**
  * 最終結果を発表する。
- * @param {Array[String]} inFiles
- * @param {Number} passCount
+ * @param {Object} count
+ * @param {number} count.total
+ * @param {number} count.pass
+ * @param {number} count.fails
+ * @param {number} count.error
  */
 function logResult(count) {
   if (count.total !== count.pass) {
