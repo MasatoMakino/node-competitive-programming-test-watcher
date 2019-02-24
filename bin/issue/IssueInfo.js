@@ -131,9 +131,10 @@ module.exports = {
       resolvedPath = path.resolve(filePath);
     }
     try {
-      return require(resolvedPath);
+      return JSON.parse(fs.readFileSync(resolvedPath, "utf8"));
     } catch (error) {
-      console.log("ルートディレクトリに課題ファイルがありません。".bold.red);
+      console.log("指定されたパスに課題ファイルがありません。".bold.red);
+      console.log(resolvedPath);
       return null;
     }
   }
