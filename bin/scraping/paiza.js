@@ -81,7 +81,7 @@ module.exports = class PaizaScraper extends Scraper {
       const linkButtons = await this.page.$$(selector);
       if (linkButtons.length === 0) continue;
 
-      this.jumpToShowPage(selector);
+      await this.jumpToShowPage(selector);
       return;
     }
   }
