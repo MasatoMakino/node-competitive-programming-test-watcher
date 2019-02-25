@@ -12,11 +12,14 @@ const spyError = jest.spyOn(console, "error").mockImplementation(x => x);
 jest.mock("fs");
 
 describe("IssueInfo", () => {
-  test("AtCoder.jp", () => {
+  const testInfo = (url, result) => {
     MockDate.set("1/1/2000");
-    const url = "https://atcoder.jp/contests/practice/tasks/practice_1";
     const info = IssueInfo.get(url);
-    expect(info).toEqual({
+    expect(info).toEqual(result);
+  };
+  test("AtCoder.jp", () => {
+    const url = "https://atcoder.jp/contests/practice/tasks/practice_1";
+    testInfo(url, {
       contestID: "practice",
       initDate: "20000101_000000",
       issueID: "practice_1",
@@ -26,10 +29,8 @@ describe("IssueInfo", () => {
   });
 
   test("AtCoder.jp + contest id", () => {
-    MockDate.set("1/1/2000");
     const url = "http://contest_id.contest.atcoder.jp/tasks/problem_id";
-    const info = IssueInfo.get(url);
-    expect(info).toEqual({
+    testInfo(url, {
       contestID: "contest_id",
       initDate: "20000101_000000",
       issueID: "problem_id",
@@ -39,10 +40,8 @@ describe("IssueInfo", () => {
   });
 
   test("paiza.jp", () => {
-    MockDate.set("1/1/2000");
     const url = "https://paiza.jp/career/challenges/293/retry";
-    const info = IssueInfo.get(url);
-    expect(info).toEqual({
+    testInfo(url, {
       contestID: "",
       initDate: "20000101_000000",
       issueID: "293",
