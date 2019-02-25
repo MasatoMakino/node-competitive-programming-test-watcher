@@ -90,7 +90,7 @@ async function overrideIndex() {
 
 /**
  * 配列分のテストをファイル書き込み
- * @param {Array}} tests in,outの順で並んだテストケースの配列。
+ * @param {Array} tests in,outの順で並んだテストケースの配列。
  */
 const writeTests = tests => {
   //既存のテストケース削除
