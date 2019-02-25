@@ -10,16 +10,6 @@ const spyLog = jest.spyOn(console, "log").mockImplementation(x => x);
 const spyWarn = jest.spyOn(console, "warn").mockImplementation(x => x);
 const spyError = jest.spyOn(console, "error").mockImplementation(x => x);
 jest.mock("fs");
-/*
-const spyReadFileSync = jest.spyOn(fs, "readFileSync").mockImplementation((string, string) => string);
-const spyWriteFileSync = jest.spyOn(fs, "writeFileSync").mockImplementation((string, string) => undefined);
-const resetSpy = () =>{
-    spyReadFileSync.mockReset();
-    spyReadFileSync.mockRestore();
-    spyWriteFileSync.mockReset();
-    spyWriteFileSync.mockRestore();
-}
-*/
 
 describe("IssueInfo", () => {
   test("AtCoder.jp", () => {
