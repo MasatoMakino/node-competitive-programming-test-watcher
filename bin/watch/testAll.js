@@ -6,24 +6,19 @@
 const fs = require("fs");
 const execSync = require("child_process").execSync;
 const path = require("path");
-const glob = require("glob");
 const colors = require("colors");
-const testConfig = require("../testConfig");
 const dirConfig = require("../dirConfig");
+const getTestFiles = require("./getTestFiles");
 
 module.exports = function() {
-  const testDir = path.resolve(testConfig.testDirName);
-  const inFiles = glob.sync(testDir + "/" + testConfig.inName + "*.txt");
-  const outFiles = glob.sync(testDir + "/" + testConfig.outName + "*.txt");
+  const tests = getTestFiles();
+  if (tests === null) {
+    console.log("cancel");
+    return;
+  }
 
-  if (inFiles.length === 0) {
-    console.log("ERROR : Test case files not found.".bold.magenta);
-    return;
-  }
-  if (inFiles.length !== outFiles.length) {
-    console.log("ERROR : Number of test case files do not match.".bold.magenta);
-    return;
-  }
+  const inFiles = tests.in;
+  const outFiles = tests.out;
 
   const count = {
     total: inFiles.length,

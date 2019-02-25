@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 const init = require("./init/init");
+const addEmptyTestSet = require("./init/addEmptyTestSet");
 const rollup = require("./watch/rollup");
 const test = require("./watch/testAll");
 const testWatch = require("./watch/testWatch");
@@ -10,7 +11,8 @@ program
   .usage("-i [url]")
   .option("-i, --init <URL>", "scraping test case from <URL>.", String)
   .option("--initFromClipboard", "scraping test case on clipboard URL.")
-  .option("-e, --initEmpty <number>", "generate empty test cases. ", Number)
+  .option("-e, --initEmpty <number>", "generate empty test cases.", Number)
+  .option("-a, --addEmptyTestSet")
   .option("-w, --watch", "watch src and test directory.")
   .option("-r, --rollback <path>", "rollback from archive <path>.", String)
   .option("-t, --test", "run all test cases.")
@@ -21,6 +23,9 @@ if (program.init) {
 }
 if (program.initEmpty) {
   init.initWithNumber(program.initEmpty);
+}
+if (program.addEmptyTestSet) {
+  addEmptyTestSet();
 }
 if (program.initFromClipboard) {
   init.initFromClipboard();

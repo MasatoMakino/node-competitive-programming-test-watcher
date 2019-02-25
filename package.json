@@ -32,6 +32,7 @@
     "testIndexNumber": "node ./bin/index.js -e 2",
     "testWatch": "node ./bin/index.js -w",
     "testAll": "node ./bin/index.js -t",
+    "add": "node ./bin/index.js -a",
     "testClipboard": "node ./bin/index.js --initFromClipboard"
   },
   "devDependencies": {
