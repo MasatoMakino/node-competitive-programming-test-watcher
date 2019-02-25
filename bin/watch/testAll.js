@@ -17,7 +17,11 @@ module.exports = function() {
   const outFiles = glob.sync(testDir + "/" + testConfig.outName + "*.txt");
 
   if (inFiles.length === 0) {
-    console.log("ERROR : Test case files not found.".magenta);
+    console.log("ERROR : Test case files not found.".bold.magenta);
+    return;
+  }
+  if (inFiles.length !== outFiles.length) {
+    console.log("ERROR : Number of test case files do not match.".bold.magenta);
     return;
   }
 
