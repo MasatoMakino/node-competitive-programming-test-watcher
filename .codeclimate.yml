@@ -1,2 +1,2 @@
 exclude_patterns:
-  - "__tests__/"
+  - "__test__/"
