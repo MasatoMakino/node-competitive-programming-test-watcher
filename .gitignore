@@ -66,3 +66,4 @@ auth.json
 /test/
 /dist/
 issue_info.json
+.idea
