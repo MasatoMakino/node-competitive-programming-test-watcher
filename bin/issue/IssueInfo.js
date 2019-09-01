@@ -108,7 +108,7 @@ module.exports = {
    * JSON用のフォーマット済みDateを取得する。
    */
   getDate() {
-    return datefns.format(new Date(), "YYYYMMDD_HHmmss");
+    return datefns.format(new Date(), "yyyyMMdd_HHmmss");
   },
 
   /**

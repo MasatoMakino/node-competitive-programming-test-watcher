@@ -75,7 +75,7 @@ For other uses, refer to the `--help` command.
 
 ## package.json
 
-If you use [NPM-Scripts](https://marketplace.visualstudio.com/items?itemName=traBpUkciP.vscode-npm-scripts), you can use this package from `package.json`.
+If you use [NPM-Scripts](https://marketplace.visualstudio.com/items?itemName=traBpUkciP.vscode-npm-scripts), you can use this package from `package.json`.
 
 ```package.json
   "scripts": {
@@ -88,4 +88,4 @@ If you use [NPM-Scripts](https://marketplace.visualstudio.com/items?itemName=tra
 
 ## License
 
-node-competitive-programming-watcher is [MIT licensed](LICENSE).
+[MIT licensed](LICENSE).
