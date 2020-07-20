@@ -1,6 +1,6 @@
 # node-competitive-programming-watcher
 
-Competitive programming helper for Node.js.
+> Competitive programming helper for Node.js.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/c8be8fee297b343bc446/maintainability)](https://codeclimate.com/github/MasatoMakino/node-competitive-programming-watcher/maintainability)
 
