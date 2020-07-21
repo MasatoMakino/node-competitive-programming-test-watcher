@@ -25,7 +25,7 @@
     "rollup-plugin-babel": "^4.4.0"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test_local": "jest --config='jest.local.config.js'",
     "testArchive": "node ./bin/archive/ArchiveTest.js",
     "testRollback": "node ./bin/archive/RollbackTest.js",
