@@ -1,7 +1,6 @@
 module.exports = function(api) {
   //実行元がjestかrollupかを判定。
   const isTest = api.env("test");
-  console.log("Babel Test env : ", isTest);
   api.cache(true);
 
   const rollupPresets = [
