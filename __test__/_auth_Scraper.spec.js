@@ -16,6 +16,7 @@ describe("Scraper", () => {
   }
 
   test("AtCoder.jp", async () => {
+
     const tests = await testModule(
       new atcoder(),
       "https://atcoder.jp/contests/abs/tasks/abc086_a"
