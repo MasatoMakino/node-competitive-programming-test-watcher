@@ -1,24 +1,5 @@
-// For a detailed explanation regarding each configuration property, visit:
-// https://jestjs.io/docs/en/configuration.html
+const {defaults} = require('jest-config');
+const baseConfig = require("./jest.config");
 
-module.exports = {
-
-  // Automatically clear mock calls and instances between every test
-  clearMocks: true,
-
-  // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
-
-  // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ["<rootDir>/jest.setup.js"],
-
-  // The test environment that will be used for testing
-  testEnvironment: "node",
-
-  // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //     "/node_modules/",
-  //   "_auth_"
-  // ],
-
-};
+baseConfig.testPathIgnorePatterns = [...defaults.testPathIgnorePatterns];
+module.exports = baseConfig;
