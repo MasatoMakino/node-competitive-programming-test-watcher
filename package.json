@@ -1,6 +1,6 @@
 {
   "name": "node-competitive-programming-watcher",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Competitive programming helper for Node.js.",
   "bin": {
     "ctw": "bin/index.js"
