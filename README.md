@@ -3,8 +3,8 @@
 > Competitive programming helper for Node.js.
 
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![Build Status](https://travis-ci.com/MasatoMakino/node-competitive-programming-watcher.svg?branch=master)](https://travis-ci.com/MasatoMakino/node-competitive-programming-watcher)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c8be8fee297b343bc446/maintainability)](https://codeclimate.com/github/MasatoMakino/node-competitive-programming-watcher/maintainability)
-[![Build Status](https://travis-ci.org/MasatoMakino/node-competitive-programming-watcher.svg?branch=master)](https://travis-ci.org/MasatoMakino/node-competitive-programming-watcher)
 
 ## setup
 
